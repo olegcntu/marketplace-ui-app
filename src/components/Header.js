@@ -1,8 +1,37 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {NavLink, Link} from "react-router-dom";
 import {BsSearch} from "react-icons/bs";
 
 function Header() {
+    const [username, setUsername] = useState('');
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [timeoutId, setTimeoutId] = useState(null);
+
+    useEffect(() => {
+        const storedUsername = localStorage.getItem('username');
+        if (storedUsername) {
+            setUsername(storedUsername);
+        }
+    }, []);
+    const handleLogout = () => {
+        setUsername('');
+        localStorage.removeItem('username');
+    };
+
+    const handleDropdownToggle = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const handleMouseEnter = () => {
+        clearTimeout(timeoutId);
+    };
+
+    const handleMouseLeave = () => {
+        const id = setTimeout(() => {
+            setIsDropdownOpen(false);
+        }, 300);
+        setTimeoutId(id);
+    };
     return (
         <>
             <header className="header-top-strip py-3">
@@ -40,7 +69,7 @@ function Header() {
                         <div className="col-5">
                             <div className="header-upper-links d-flex align-items-center justify-content-between">
                                 <div>
-                                    <Link to="/compare-product"className="d-flex align-items-center gap-10 text-white">
+                                    <Link to="/compare-product" className="d-flex align-items-center gap-10 text-white">
                                         <img src="/images/compare.png" alt="compare"/>
                                         <p className="mb-0">
                                             Compare <br/> products
@@ -56,12 +85,47 @@ function Header() {
                                     </Link>
                                 </div>
                                 <div>
-                                    <Link to="/login" className="d-flex align-items-center gap-10 text-white">
-                                        <img src="/images/user.png" alt="user"/>
-                                        <p className="mb-0">
-                                            Log in <br/> My Account
-                                        </p>
-                                    </Link>
+                                    {username ? (
+                                        <div
+                                            className="dropdown-menu-user d-flex align-items-center gap-10 text-white"
+                                            onMouseEnter={handleMouseEnter}
+                                            onMouseLeave={handleMouseLeave}
+                                        >
+                                            <div
+                                                className="dropdown-menu-user__toggle"
+                                                onClick={handleDropdownToggle}
+                                            >
+                                                <img src="/images/user.png" alt="user"/>
+
+                                            </div>
+                                            <p className="mb-0">{username}</p>
+                                            {isDropdownOpen && (
+                                                <div className="dropdown-menu-user__content">
+                                                    <ul>
+                                                        <li>
+                                                            <Link to="/my-account" className="dropdown-item text-black">
+                                                                Account
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link onClick={handleLogout}
+                                                                  className="dropdown-item text-black">
+                                                                Log Out
+                                                            </Link>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <Link to="/login" className="d-flex align-items-center gap-10 text-white">
+                                            <img src="/images/user.png" alt="user"/>
+                                            <p className="mb-0">
+                                                Log in
+                                                <br/> My Account
+                                            </p>
+                                        </Link>
+                                    )}
                                 </div>
                                 <div>
                                     <Link to="/cart" className="d-flex align-items-center gap-10 text-white">

@@ -72,6 +72,30 @@ a {
 }
 
 /*Header part*/
+.dropdown-menu-user__content {
+    position: absolute;
+    top: 100%;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.dropdown-menu-user__content ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu-user__content li {
+    margin-bottom: 5px;
+}
+
+.dropdown-menu-user__content a {
+    color: #333;
+    text-decoration: none;
+}
+
 .header-top-strip {
     border-bottom: 1px solid var(--color--3b4149);
     background-color: var(--color--131921);
@@ -855,3 +879,7 @@ product-card .product-details h5 {
 }
 
 /* Shipping Page end*/
+.dropdown-menu-user {
+    position: relative;
+}
+
