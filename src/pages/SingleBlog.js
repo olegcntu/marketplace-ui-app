@@ -1,35 +1,148 @@
-import React from 'react'
-import Meta from "../components/Meta";
-import BreadCrumb from "../components/BreadCrumb";
-import BlogCard from "../components/BlogCard";
-import {Link} from "react-router-dom";
-import {HiOutlineArrowLeft} from "react-icons/hi";
-import Container from "../components/Container";
+import React, {useEffect, useState} from 'react';
+import {HiOutlineArrowLeft, HiEye, HiThumbUp, HiThumbDown} from 'react-icons/hi';
+import {Link, useParams} from 'react-router-dom';
+import Meta from '../components/Meta';
+import BreadCrumb from '../components/BreadCrumb';
+import Container from '../components/Container';
 
 function SingleBlog() {
+    const [blog, setBlog] = useState(null);
+    const {id} = useParams();
+    const [shouldReload, setShouldReload] = useState(false);
+    const [viewCount, setViewCount] = useState(0);
+    const [isLiked, setIsLiked] = useState(false);
+    const [isDisLiked, setIsDisLiked] = useState(false);
+
+    const token = localStorage.getItem('token');
+    const email = localStorage.getItem('userEmail');
+
+    useEffect(() => {
+        fetch(`http://localhost:5001/api/blog/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setBlog(data);
+                setViewCount(data.numViews);
+                setIsLiked(checkUserLiked(data));
+                setIsDisLiked(checkUserDisLiked(data));
+            })
+            .catch((error) => console.log(error));
+
+    }, [id, token, shouldReload]);
+
+    function checkUserLiked(data) {
+        if (!email) return false
+        const likes = data.likes;
+        return likes.some(user => user.email === email);
+    }
+
+    function checkUserDisLiked(data) {
+        if (!email) return false
+        const likes = data.dislikes;
+        return likes.some(user => user.email === email);
+    }
+
+    const handleLike = () => {
+        if (token) {
+            const requestBody = {
+                blogId: id,
+            };
+
+            fetch('http://localhost:5001/api/blog/likes', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(requestBody),
+            })
+                .then((response) => response.json())
+                .then(() => {
+                    setShouldReload(!shouldReload);
+                })
+                .catch((error) => console.log(error));
+        } else {
+            // Перенаправление пользователя на страницу входа в аккаунт
+            window.location.href = '/login';
+        }
+    };
+
+    const handleDislike = () => {
+        // Проверка наличия токена перед отправкой запроса на дизлайк
+        if (token) {
+            const requestBody = {
+                blogId: id,
+            };
+
+            fetch('http://localhost:5001/api/blog/dislikes', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(requestBody),
+            })
+                .then((response) => response.json())
+                .then(() => {
+                    setShouldReload(!shouldReload);
+                })
+                .catch((error) => console.log(error));
+        } else {
+            // Перенаправление пользователя на страницу входа в аккаунт
+            window.location.href = '/login';
+        }
+    };
+
+    if (!blog) {
+        return <p>Loading...</p>;
+    }
+
+    const {title, description, images, likes, dislikes} = blog;
+
     return (
         <>
-            <Meta title={"Dynamic Blog Name"}/>
-            <BreadCrumb title="Dynamic Blog Name"/>
+            <Meta title={title}/>
+            <BreadCrumb title={title}/>
             <Container class1="blog-wrapper home-wrapper-2 py-5">
                 <div className="row">
                     <div className="col-12">
                         <div className="single-blog-card">
                             <Link to="/blogs" className="d-flex align-items-center gap-10">
-                                <HiOutlineArrowLeft className="fs-5"/>Go back to Blogs
+                                <HiOutlineArrowLeft className="fs-5"/>
+                                Go back to Blogs
                             </Link>
-                            <h3 className="title">A Beautiful Morning Renasince</h3>
-                            <img src="/images/blog/blog-1.jpg"
-                                 className="img-fluid w-100 my-4"
-                                 alt="blog"/>
-                            <p>wf'ac wrfkjo ewrovnoi wiorvnodn sa;kvopeffvn iodfnv odifv diofvbbneoisv
-                                siofvnbefrvn</p>
+                            <h3 className="title">{title}</h3>
+                            {images.length > 0 &&
+                                <img src={images[0].url} className="img-fluid w-100 my-4" alt="blog"/>}
+                            <p>{description}</p>
+                            <p>
+                                <HiEye className="fs-2"/> Views: {viewCount}
+                            </p>
+                            <p>
+                                <HiThumbUp
+                                    className={`icon-button fs-2 ${isLiked ? 'active' : ''}`}
+                                    style={{color: isLiked ? '#007BFF' : 'inherit'}}
+                                    onClick={handleLike}
+                                />{' '}
+                                Likes: {likes.length}
+                            </p>
+                            <p>
+                                <HiThumbDown
+                                    className={`icon-button fs-2 ${isDisLiked ? 'active' : ''}`}
+                                    style={{color: isDisLiked ? '#007BFF' : 'inherit'}}
+                                    onClick={handleDislike}
+                                />{' '}
+                                Dislikes: {dislikes.length}
+                            </p>
                         </div>
                     </div>
                 </div>
             </Container>
         </>
-    )
+    );
 }
 
-export default SingleBlog
+export default SingleBlog;

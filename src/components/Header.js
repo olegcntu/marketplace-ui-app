@@ -16,6 +16,8 @@ function Header() {
     const handleLogout = () => {
         setUsername('');
         localStorage.removeItem('username');
+        localStorage.removeItem('token');
+        localStorage.removeItem('userEmail');
     };
 
     const handleDropdownToggle = () => {

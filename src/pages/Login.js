@@ -30,6 +30,7 @@ function Login() {
 
                 localStorage.setItem('token', json.token);
                 localStorage.setItem('username', json.firstname);
+                localStorage.setItem('userEmail', json.email);
 
                 window.location.href = '/';
             } else {

@@ -12,7 +12,7 @@ function SignUp() {
 
     const registerUser = async (userData) => {
         try {
-            const response = await axios.post('http://localhost:5000/api/user/register', userData);
+            const response = await axios.post('http://localhost:5001/api/user/register', userData);
             console.log(response.data);
             navigate('/login');
         } catch (error) {
