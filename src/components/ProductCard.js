@@ -9,7 +9,7 @@ const ProductCard = ({product, grid}) => {
     return (
         <>
             <div className={`${location.pathname === '/product' ? `gr-${grid}` : 'col-3'}`}>
-                <Link to={`/${_id}`} className="product-card position-relative">
+                <Link to={`${_id}`} className="product-card position-relative">
                     <div className="wishlist-ico position-absolute">
                         <button className="border-0 bg-transparent">
                             <img src="/images/ico/wishlist.png" alt="wishlist"/>
@@ -31,7 +31,6 @@ const ProductCard = ({product, grid}) => {
                         <p className={`description ${grid === 12 ? 'd-block' : 'd-none'}`}>{description}</p>
                         <p className="price">${price.toFixed(2)}</p>
                     </div>
-                    {console.log(description)}
                     <div className="action-bar position-absolute">
                         <div className="d-flex flex-column gap-15">
                             <button className="border-0 bg-transparent">

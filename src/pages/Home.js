@@ -162,10 +162,10 @@ function Home() {
                         <h3 className="section-heading">Featured Collection</h3>
                     </div>
                     <div className="d-flex gap-10">
-                        <ProductCard/>
-                        <ProductCard/>
-                        <ProductCard/>
-                        <ProductCard/>
+                        {/*<ProductCard/>*/}
+                        {/*<ProductCard/>*/}
+                        {/*<ProductCard/>*/}
+                        {/*<ProductCard/>*/}
                     </div>
                 </div>
             </Container>
@@ -233,10 +233,10 @@ function Home() {
                 </div>
                 <div className="row">
                     <div className="d-flex gap-10">
-                        <ProductCard/>
-                        <ProductCard/>
-                        <ProductCard/>
-                        <ProductCard/>
+                        {/*<ProductCard/>*/}
+                        {/*<ProductCard/>*/}
+                        {/*<ProductCard/>*/}
+                        {/*<ProductCard/>*/}
                     </div>
                 </div>
             </Container>

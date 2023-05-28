@@ -1,27 +1,66 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import ProductCard from "../components/ProductCard";
 import ReactStars from "react-rating-stars-component";
 import ReactImageZoom from "react-image-zoom";
 import Color from "../components/Color";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {TbGitCompare} from "react-icons/tb"
 import {AiOutlineHeart} from "react-icons/ai"
 import Container from "../components/Container";
 
 function SingleProduct() {
+
+    const [product, setProduct] = useState(null);
+    const [orderedProduct, setOrderedProduct] = useState(true)
+    const {id} = useParams();
+
+    useEffect(() => {
+        fetchProduct();
+    }, []);
+
+    const fetchProduct = async () => {
+        try {
+            const response = await fetch(`http://localhost:5001/api/product/${id}`);
+            const data = await response.json();
+            setProduct(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    if (!product) {
+        return <div>Loading...</div>;
+    }
+
+    const {
+        _id,
+        title,
+        description,
+        price,
+        category,
+        brand,
+        quantity,
+        sold,
+        images,
+        ratings,
+        createdAt,
+        totalrating,
+        updatedAt
+    } = product;
+
     const props = {
         width: 600,
         height: 500,
         zoomWidth: 500,
-        img: "https://rukminim1.flixcart.com/image/832/832/l4d2ljk0/watch/r/n/h/1-boy-s-exclusive-men03-blue-daniel-jubile-boys-original-imagf9uuzyrg9x6b.jpeg?q=70"
+        img: images[0].url
     }
-    const [orderedProduct, setOrderedProduct] = useState(true)
     return (
         <>
-            <Meta title={"Product Name"}/>
-            <BreadCrumb title="Product Name"/>
+            <Meta title={title}/>
+            <BreadCrumb title={title}/>
+            {console.log(images)}
             <Container class1="main-product-wrapper py-5 home-wrapper-2">
                 <div className="row">
                     <div className="col-6">
@@ -31,38 +70,30 @@ function SingleProduct() {
                             </div>
                         </div>
                         <div className="other-product-images d-flex flex-wrap gap-15">
-                            <div><img className="img-fluid"
-                                      src="https://rukminim1.flixcart.com/image/832/832/l4d2ljk0/watch/r/n/h/1-boy-s-exclusive-men03-blue-daniel-jubile-boys-original-imagf9uuzyrg9x6b.jpeg?q=70"
-                                      alt=""/></div>
-                            <div><img className="img-fluid"
-                                      src="https://rukminim1.flixcart.com/image/832/832/l4d2ljk0/watch/r/n/h/1-boy-s-exclusive-men03-blue-daniel-jubile-boys-original-imagf9uuzyrg9x6b.jpeg?q=70"
-                                      alt=""/></div>
-                            <div><img className="img-fluid"
-                                      src="https://rukminim1.flixcart.com/image/832/832/l4d2ljk0/watch/r/n/h/1-boy-s-exclusive-men03-blue-daniel-jubile-boys-original-imagf9uuzyrg9x6b.jpeg?q=70"
-                                      alt=""/></div>
-                            <div><img className="img-fluid"
-                                      src="https://rukminim1.flixcart.com/image/832/832/l4d2ljk0/watch/r/n/h/1-boy-s-exclusive-men03-blue-daniel-jubile-boys-original-imagf9uuzyrg9x6b.jpeg?q=70"
-                                      alt=""/></div>
+                            {images.map((image, index) => (
+                                <div key={index}>
+                                    <img className="img-fluid" src={image.url} alt="" />
+                                </div>
+                            ))}
                         </div>
+
                     </div>
                     <div className="col-6">
                         <div className="main-product-details">
                             <div className="border-bottom">
-                                <h3 className="title">
-                                    Kids Headphones Bulk 10 Pack Multi Colored
-                                </h3>
+                                <h3 className="title">{title}</h3>
                             </div>
                             <div className="border-bottom py-3">
-                                <p className="price">$100</p>
+                                <p className="price">{`$ ${price}`}</p>
                                 <div className="d-flex align-items-center gap-10">
                                     <ReactStars
                                         count={5}
                                         size={24}
-                                        value={3}
+                                        value={totalrating}
                                         edit={false}
                                         activeColor="#ffd700"
                                     />
-                                    <p className="mb-0">(2 rewiews)</p>
+                                    <p className="mb-0">({sold} rewiews)</p>
                                 </div>
                                 <a className="review-btn" href="#reviews">Write a Reviews</a>
                             </div>
@@ -73,11 +104,11 @@ function SingleProduct() {
                                 </div>
                                 <div className="d-flex gap-10 align-items-center my-2">
                                     <h3 className="product-heading">Brand :</h3>
-                                    <p className="product-data">Havels</p>
+                                    <p className="product-data">{brand}</p>
                                 </div>
                                 <div className="d-flex gap-10 align-items-center my-2">
                                     <h3 className="product-heading">Category :</h3>
-                                    <p className="product-data">Watch</p>
+                                    <p className="product-data">{category}</p>
                                 </div>
                                 <div className="d-flex gap-10 align-items-center my-2">
                                     <h3 className="product-heading">Tags :</h3>
@@ -88,17 +119,7 @@ function SingleProduct() {
                                     <p className="product-data">In Stock</p>
                                 </div>
                                 <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                                    <h3 className="product-heading">Size :</h3>
-                                    <div className="d-flex flex-wrap gap-15">
-                                            <span
-                                                className="badge border border-1 bg-white text-dark border-secondary">S</span>
-                                        <span
-                                            className="badge border border-1 bg-white text-dark border-secondary">M</span>
-                                        <span
-                                            className="badge border border-1 bg-white text-dark border-secondary">XL</span>
-                                        <span
-                                            className="badge border border-1 bg-white text-dark border-secondary">XXL</span>
-                                    </div>
+
                                 </div>
                                 <div className="d-flex gap-10 flex-column mt-2 mb-3">
                                     <h3 className="product-heading">Color :</h3>
@@ -143,9 +164,7 @@ function SingleProduct() {
                         <div className="col-12">
                             <h4>Description</h4>
                             <div className="bg-white p-3">
-                                <p>
-                                    qf erfcerv iu[ dj f[ mkobf[oc fv[ nfob nfgo[ nf grj gjfsd oj eor djo rr jgf fo
-                                </p>
+                                <p> {description}</p>
                             </div>
                         </div>
                     </div>
@@ -162,11 +181,11 @@ function SingleProduct() {
                                             <ReactStars
                                                 count={5}
                                                 size={24}
-                                                value={3}
+                                                value={totalrating}
                                                 edit={false}
                                                 activeColor="#ffd700"
                                             />
-                                            <p className="mb-0 t-review">Based on 2 Reviews</p>
+                                            <p className="mb-0 t-review">Based on {sold} Reviews</p>
                                         </div>
                                     </div>
                                     {
@@ -232,10 +251,10 @@ function SingleProduct() {
                     </div>
                     <div className="row">
                         <div className="d-flex gap-10">
-                            <ProductCard/>
-                            <ProductCard/>
-                            <ProductCard/>
-                            <ProductCard/>
+                            {/*<ProductCard/>*/}
+                            {/*<ProductCard/>*/}
+                            {/*<ProductCard/>*/}
+                            {/*<ProductCard/>*/}
                         </div>
                     </div>
             </Container>
