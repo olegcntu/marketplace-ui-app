@@ -4,6 +4,7 @@ import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import Container from "../components/Container";
 import {CustomInput} from "../components/CustomInput";
+import API_ROUTES from "../api";
 
 function ResetPassword() {
     const [password, setPassword] = useState('');
@@ -20,7 +21,7 @@ function ResetPassword() {
         }
 
         try {
-            const response = await fetch(`http://localhost:5001/api/user/reset-password/${token}`, {
+            const response = await fetch(`${API_ROUTES.USER_SERVICE}/user/reset-password/${token}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

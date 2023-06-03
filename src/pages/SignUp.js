@@ -5,6 +5,7 @@ import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import Container from "../components/Container";
 import { CustomInput } from "../components/CustomInput";
+import API_ROUTES from "../api";
 
 function SignUp() {
     const [error, setError] = useState(null);
@@ -12,7 +13,7 @@ function SignUp() {
 
     const registerUser = async (userData) => {
         try {
-            const response = await axios.post('http://localhost:5001/api/user/register', userData);
+            const response = await axios.post(`${API_ROUTES.USER_SERVICE}/user/register`, userData);
             console.log(response.data);
             navigate('/login');
         } catch (error) {

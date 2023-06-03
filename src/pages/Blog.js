@@ -4,12 +4,13 @@ import BreadCrumb from "../components/BreadCrumb";
 import BlogCard from "../components/BlogCard";
 import Contact from "./Contact";
 import Container from "../components/Container";
+import API_ROUTES from "../api";
 
 const Blog = () => {
     const [blogs, setBlogs] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5001/api/blog/')
+        fetch(`${API_ROUTES.BLOG_SERVICE}/blog/`)
             .then(response => response.json())
             .then(data => setBlogs(data))
             .catch(error => console.error('Ошибка при выполнении запроса:', error));

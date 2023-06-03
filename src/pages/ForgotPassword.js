@@ -4,7 +4,7 @@ import BreadCrumb from "../components/BreadCrumb";
 import {Link} from "react-router-dom";
 import Container from "../components/Container";
 import {CustomInput} from "../components/CustomInput";
-
+import API_ROUTES from "../api";
 function ForgotPassword() {
     const [email, setEmail] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +17,7 @@ function ForgotPassword() {
         setErrorMessage("");
         setMessage("");
         const data = {email};
-        fetch('http://localhost:5001/api/user/forgot-password-token', {
+        fetch(`${API_ROUTES.USER_SERVICE}/user/forgot-password-token`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

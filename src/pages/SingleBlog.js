@@ -4,6 +4,7 @@ import {Link, useParams} from 'react-router-dom';
 import Meta from '../components/Meta';
 import BreadCrumb from '../components/BreadCrumb';
 import Container from '../components/Container';
+import API_ROUTES from "../api";
 
 function SingleBlog() {
     const [blog, setBlog] = useState(null);
@@ -17,7 +18,7 @@ function SingleBlog() {
     const email = localStorage.getItem('userEmail');
 
     useEffect(() => {
-        fetch(`http://localhost:5001/api/blog/${id}`, {
+        fetch(`${API_ROUTES.BLOG_SERVICE}/blog/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -51,7 +52,7 @@ function SingleBlog() {
                 blogId: id,
             };
 
-            fetch('http://localhost:5001/api/blog/likes', {
+            fetch(`${API_ROUTES.BLOG_SERVICE}/blog/likes`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -77,7 +78,7 @@ function SingleBlog() {
                 blogId: id,
             };
 
-            fetch('http://localhost:5001/api/blog/dislikes', {
+            fetch(`${API_ROUTES.BLOG_SERVICE}/blog/dislikes`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

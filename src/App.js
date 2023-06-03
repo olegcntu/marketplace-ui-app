@@ -22,6 +22,7 @@ import SingleProduct from "./pages/SingleProduct";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Account from "./pages/Account";
+import CreateProduct from "./pages/CreateProduct";
 
 function App() {
     return (
@@ -49,6 +50,7 @@ function App() {
                         <Route path="shipping-policy" element={<ShippingPolicy/>}/>
                         <Route path="term-conditions" element={<TermsAndConditions/>}/>
                         <Route path="my-account" element={<Account/>}/>
+                        <Route path="create-product" element={<CreateProduct/>}/>
                     </Route>
                 </Routes>
             </BrowserRouter>

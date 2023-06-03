@@ -9,6 +9,7 @@ import {Link, useParams} from "react-router-dom";
 import {TbGitCompare} from "react-icons/tb"
 import {AiOutlineHeart} from "react-icons/ai"
 import Container from "../components/Container";
+import API_ROUTES from "../api";
 
 function SingleProduct() {
 
@@ -22,7 +23,7 @@ function SingleProduct() {
 
     const fetchProduct = async () => {
         try {
-            const response = await fetch(`http://localhost:5001/api/product/${id}`);
+            const response = await fetch(`${API_ROUTES.PRODUCT_SERVICE}/product/${id}`);
             const data = await response.json();
             setProduct(data);
         } catch (error) {

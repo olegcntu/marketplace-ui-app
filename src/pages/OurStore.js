@@ -6,6 +6,7 @@ import ReactStars from "react-rating-stars-component";
 import ProductCard from "../components/ProductCard";
 import Color from "../components/Color";
 import Container from "../components/Container";
+import API_ROUTES from "../api";
 
 const OurStore = () => {
     const [grid, setGrid] = useState(4)
@@ -14,7 +15,7 @@ const OurStore = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch('http://localhost:5001/api/product/');
+                const response = await fetch(`${API_ROUTES.PRODUCT_SERVICE}/product/`);
                 const data = await response.json();
                 setProducts(data);
             } catch (error) {
