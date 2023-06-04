@@ -446,6 +446,7 @@ product-card .product-details h5 {
     margin-bottom: 20px;
 }
 
+
 .filter-card ul,
 .filter-card .form-check-label {
     list-style-type: none;
@@ -640,6 +641,10 @@ product-card .product-details h5 {
     width: 500px;
     margin: 30px auto;
     border-radius: 10px;
+}
+
+.taller-input {
+    height: 400px;
 }
 
 .auth-card h3 {
@@ -891,16 +896,24 @@ product-card .product-details h5 {
     justify-content: flex-start;
     margin-left: 20px;
 }
-
+.filter-title-create {
+    margin-left: 25%;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    color: var(--color--1c1c1b);
+    margin-bottom: 20px;
+}
 .create-product-button {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 85px;
     border: 2px solid gray;
-    border-radius: 50%;
+    border-radius: 10%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    margin-left: 50%;
 }
 
 .plus-sign {

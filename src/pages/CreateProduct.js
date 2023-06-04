@@ -152,7 +152,7 @@ const CreateProductForm = () => {
                                     src={URL.createObjectURL(image)}
                                     alt={`Image ${index}`}
                                     className="img-thumbnail"
-                                    style={{width: '100px', height: '100px'}}
+                                    style={{width: '200px', height: '200px', objectFit: 'contain'}}
                                 />
                                 <Button variant="danger" size="sm" className="mt-2"
                                         onClick={() => handleImageRemove(index)}>

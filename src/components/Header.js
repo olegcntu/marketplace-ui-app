@@ -40,7 +40,7 @@ function Header() {
                 <div className="container-xxl">
                     <div className="row">
                         <div className="col-6">
-                            <p className="text-white mb-0">Free Shipping Over $100 & Free returns</p>
+                            <p className="text-white mb-0">Free Shipping Over 5$</p>
                         </div>
                         <div className="col-6">
                             <p className="text-end text-white mb-0">
@@ -54,7 +54,7 @@ function Header() {
                 <div className="container-xxl">
                     <div className="row align-items-center">
                         <div className="col-2">
-                            <h1><Link className="text-white">Dev Corner</Link></h1>
+                            <h1><Link className="text-white">Laptop Standard</Link></h1>
                         </div>
                         <div className="col-5">
                             <div className="input-group">
