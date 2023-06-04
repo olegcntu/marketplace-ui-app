@@ -91,35 +91,7 @@ const OurStore = () => {
                                         </label>
                                     </div>
                                 </div>
-                                <h5 className="sub-title">Colors</h5>
-                                <div>
-                                    <div>
-                                        <Color/>
-                                    </div>
-                                </div>
-                                <h5 className="sub-title">Size</h5>
-                                <div>
-                                    <div className="form-check">
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            value=""
-                                            id="color-1"/>
-                                        <label className="form-check-label" htmlFor="color-1">
-                                            S(2)
-                                        </label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            value=""
-                                            id="color-2"/>
-                                        <label className="form-check-label" htmlFor="color-2">
-                                            M(2)
-                                        </label>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                         <div className="filter-card mb-3">
