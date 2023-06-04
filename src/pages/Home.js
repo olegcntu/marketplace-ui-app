@@ -6,10 +6,12 @@ import ProductCard from "../components/ProductCard";
 import {SpecialProduct} from "../components/SpecialProduct";
 import Container from "../components/Container";
 import {services} from "../utils/Data";
+import Meta from "../components/Meta";
 
 function Home() {
     return (
         <>
+            <Meta title="Home"/>
             <Container class1="home-wrapper-1 py-5">
                 <div className="row">
                     <div className="col-6">
@@ -18,10 +20,10 @@ function Home() {
                                  src="/images/main-banner.jpg"
                                  alt="main banner"/>
                             <div className="main-banner-content position-absolute">
-                                <h4>SUPERCHARGER FOR PROS.</h4>
-                                <h5>iPad S13+ Pro.</h5>
+                                <h4>BEST SHOP FOR PROS.</h4>
+                                <h5>Gaming phones</h5>
                                 <p>From $999.0 or 41.62/mo.</p>
-                                <Link className="button">BUY NOW</Link>
+                                <Link to={'/product'} className="button">Go to shop</Link>
                             </div>
                         </div>
                     </div>
@@ -33,39 +35,30 @@ function Home() {
                                      alt="main banner"/>
                                 <div className="small-banner-content position-absolute">
                                     <h4>SUPERCHARGER FOR PROS.</h4>
-                                    <h5>iPad S13+ Pro.</h5>
-                                    <p>From $999.0 <br/>or 41.62/mo.</p>
+                                    <h5>latest keyboards</h5>
+                                    <p>From $19.0 <br/>or 1.58/mo.</p>
                                 </div>
                             </div>
                             <div className="small-banner position-relative ">
                                 <img className="img-fluid rounded-3"
-                                     src="/images/catbanner-02.jpg"
+                                     src="/images/computer-2982270_1920.jpg"
+                                     alt="main banner"/>
+
+                            </div>
+                            <div className="small-banner position-relative ">
+                                <img className="img-fluid rounded-3"
+                                     src="/images/workspace-1280538_1920.jpg"
                                      alt="main banner"/>
                                 <div className="small-banner-content position-absolute">
-                                    <h4>NEW ARRIVAL</h4>
-                                    <h5>Buy Ipad Air</h5>
-                                    <p>From $999.0 <br/>or 41.62/mo.</p>
+                                    <h4>for working at home</h4>
+                                    <h5>buy stuff from us</h5>
+                                    <p>From $9.0</p>
                                 </div>
                             </div>
                             <div className="small-banner position-relative ">
                                 <img className="img-fluid rounded-3"
-                                     src="/images/catbanner-02.jpg"
+                                     src="/images/desk-1284085_1920.jpg"
                                      alt="main banner"/>
-                                <div className="small-banner-content position-absolute">
-                                    <h4>NEW ARRIVAL</h4>
-                                    <h5>Buy Ipad Air</h5>
-                                    <p>From $999.0 <br/> or 41.62/mo.</p>
-                                </div>
-                            </div>
-                            <div className="small-banner position-relative ">
-                                <img className="img-fluid rounded-3"
-                                     src="/images/catbanner-02.jpg"
-                                     alt="main banner"/>
-                                <div className="small-banner-content position-absolute">
-                                    <h4>NEW ARRIVAL</h4>
-                                    <h5>Buy Ipad Air</h5>
-                                    <p>From $999.0 <br/> or 41.62/mo.</p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -97,60 +90,60 @@ function Home() {
                         <div className="categories d-flex justify-content-between flex-wrap align-items-center">
                             <div className="d-flex  align-items-center">
                                 <div>
-                                    <h5>Cameras</h5>
-                                    <p>10 Items</p>
+                                    <h5>System unit</h5>
+                                    <p>24 Items</p>
                                 </div>
-                                <img className="img-fluid" src="/images/photo-camera.jpg" alt="camera"></img>
+                                <img className="img-fluid" src="/images/imgonline-com-ua-Resize-AIYDvK9Msp.png" alt="camera"></img>
                             </div>
                             <div className="d-flex  align-items-center">
                                 <div>
-                                    <h5>Cameras</h5>
+                                    <h5>Monitors</h5>
                                     <p>10 Items</p>
                                 </div>
                                 <img className="img-fluid" src="/images/TV.jpg" alt="camera"></img>
                             </div>
                             <div className="d-flex  align-items-center">
                                 <div>
-                                    <h5>Cameras</h5>
-                                    <p>10 Items</p>
+                                    <h5>Computer mouse</h5>
+                                    <p>15 Items</p>
                                 </div>
-                                <img className="img-fluid" src="/images/1.jpg" alt="camera"></img>
+                                <img className="img-fluid" src="/images/pngwing.com.png" alt="camera"></img>
                             </div>
                             <div className="d-flex  align-items-center">
                                 <div>
-                                    <h5>Cameras</h5>
-                                    <p>10 Items</p>
+                                    <h5>Headphones</h5>
+                                    <p>9 Items</p>
                                 </div>
                                 <img className="img-fluid" src="/images/headphones.jpg" alt="camera"></img>
                             </div>
 
                             <div className="d-flex  align-items-center">
                                 <div>
-                                    <h5>Cameras</h5>
-                                    <p>10 Items</p>
+                                    <h5>USB cord</h5>
+                                    <p>7 Items</p>
                                 </div>
-                                <img className="img-fluid" src="/images/photo-camera.jpg" alt="camera"></img>
+                                <img className="img-fluid" src="/images/cabel.png" alt="camera"></img>
                             </div>
                             <div className="d-flex  align-items-center">
                                 <div>
-                                    <h5>Cameras</h5>
+                                    <h5>Keyboard</h5>
                                     <p>10 Items</p>
                                 </div>
-                                <img className="img-fluid" src="/images/TV.jpg" alt="camera"></img>
+                                <img className="img-fluid" src="/images/keyboard.png" alt="camera"></img>
                             </div>
                             <div className="d-flex  align-items-center">
                                 <div>
-                                    <h5>Cameras</h5>
-                                    <p>10 Items</p>
+                                    <h5>Laptop</h5>
+                                    <p>39 Items</p>
                                 </div>
-                                <img className="img-fluid" src="/images/smart-watch.jpg" alt="camera"></img>
+                                <img className="img-fluid" src="/images/laptop.png" alt="camera"></img>
                             </div>
                             <div className="d-flex  align-items-center">
                                 <div>
-                                    <h5>Cameras</h5>
-                                    <p>10 Items</p>
+                                    <h5>Tablet</h5>
+                                    <p>17 Items</p>
                                 </div>
-                                <img className="img-fluid" src="/images/headphones.jpg" alt="camera"></img>
+                                <img className="img-fluid" src="/images/tablet.png" alt="camera"></img>
                             </div>
                         </div>
                     </div>
