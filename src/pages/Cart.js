@@ -55,7 +55,7 @@ const Cart = () => {
                                 <div className="d-flex justify-content-between align-items-baseline">
                                     <Link to="/product" className="button">Continue To Shopping</Link>
                                     <div className="d-flex flex-column align-items-end">
-                                        <h4>SubTotal: $ 1000</h4>
+                                        <h4>SubTotal: $ 100</h4>
                                         <p>Taxes and shipping calculated at checkout</p>
                                         <Link to="/checkout" className="button">Checkout</Link>
                                     </div>

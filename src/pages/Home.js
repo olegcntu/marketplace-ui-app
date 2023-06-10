@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Link} from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../components/BlogCard";
@@ -7,8 +7,18 @@ import {SpecialProduct} from "../components/SpecialProduct";
 import Container from "../components/Container";
 import {services} from "../utils/Data";
 import Meta from "../components/Meta";
+import API_ROUTES from "../api";
 
 function Home() {
+    const [blogs, setBlogs] = useState([]);
+
+    useEffect(() => {
+        fetch(`${API_ROUTES.BLOG_SERVICE}/blog/`)
+            .then(response => response.json())
+            .then(data => setBlogs(data))
+            .catch(error => console.error('Ошибка при выполнении запроса:', error));
+    }, []);
+
     return (
         <>
             <Meta title="Home"/>
@@ -169,17 +179,17 @@ function Home() {
                             <img className="img-fluid" src="/images/2.jpg" alt="famous"></img>
                             <div className="famous-content position-absolute">
                                 <h5>Big screen</h5>
-                                <h6>Smart watch Series 7</h6>
-                                <p>From $399 or 16.62/mo for 24 mo.*</p>
+                                <h6>Smart</h6>
+                                <p>From $399</p>
                             </div>
                         </div>
                     </div>
                     <div className="col-3">
                         <div className="famous-card position-relative">
-                            <img className="img-fluid" src="/images/3.jpg" alt="famous"></img>
+                            <img className="img-fluid" src="/images/1235.jpg" alt="famous"></img>
                             <div className="famous-content position-absolute">
                                 <h5 className="text-dark">Studio Display</h5>
-                                <h6 className="text-dark">600 nits of brightness</h6>
+                                <h6 className="text-dark">600</h6>
                                 <p className="text-dark"> 27-inch 5k Retina display</p>
                             </div>
                         </div>
@@ -188,19 +198,17 @@ function Home() {
                         <div className="famous-card position-relative">
                             <img className="img-fluid" src="/images/3.jpg" alt="famous"></img>
                             <div className="famous-content position-absolute">
-                                <h5 className="text-dark">Studio Display</h5>
-                                <h6 className="text-dark">600 nits of brightness</h6>
-                                <p className="text-dark"> 27-inch 5k Retina display</p>
+                                <h5 className="text-dark">Tablet</h5>
                             </div>
                         </div>
                     </div>
+
                     <div className="col-3">
                         <div className="famous-card position-relative">
-                            <img className="img-fluid" src="/images/3.jpg" alt="famous"></img>
+                            <img className="img-fluid" src="/images/1236.jpg" alt="famous"></img>
                             <div className="famous-content position-absolute">
-                                <h5 className="text-dark">Studio Display</h5>
-                                <h6 className="text-dark">600 nits of brightness</h6>
-                                <p className="text-dark"> 27-inch 5k Retina display</p>
+                                <h5 className="text-dark">Excellent Sound</h5>
+                                <h6 className="text-dark">399$</h6>
                             </div>
                         </div>
                     </div>
@@ -213,25 +221,52 @@ function Home() {
                     </div>
                 </div>
                 <div className="row">
-                    <SpecialProduct/>
-                    <SpecialProduct/>
-                    <SpecialProduct/>
+                    <SpecialProduct
+                        imageSrc="/images/photo-camera.jpg"
+                        brand="Havels"
+                        title="Camera Cannon Mark 2+ "
+                        rating={5}
+                        price={1000}
+                        discountDays={3}
+                        productCount={5}
+                        progressValue={25}
+                    />
+                    <SpecialProduct
+                        imageSrc="/images/a.jpg"
+                        brand="RZTK"
+                        title="Headphones RZTK MS300 Black"
+                        rating={4}
+                        price={100}
+                        discountDays={1}
+                        productCount={5}
+                        progressValue={275}
+                    />
+                    <SpecialProduct
+                        imageSrc="/images/yt.jpg"
+                        brand="Acer"
+                        title="Notebook Acer Aspire 7 A715-42G-R3EZ (NH.QBFEU.00C) "
+                        rating={5}
+                        price={1500}
+                        discountDays={5}
+                        productCount={5}
+                        progressValue={95}
+                    />
                 </div>
             </Container>
             <Container class1="popular-wrapper py-5 home-wrapper-2">
-                <div className="row">
-                    <div className="col-12">
-                        <h3 className="section-heading">Our Popular Products</h3>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="d-flex gap-10">
-                        {/*<ProductCard/>*/}
-                        {/*<ProductCard/>*/}
-                        {/*<ProductCard/>*/}
-                        {/*<ProductCard/>*/}
-                    </div>
-                </div>
+                {/*<div className="row">*/}
+                {/*    <div className="col-12">*/}
+                {/*        <h3 className="section-heading">Our Popular Products</h3>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+                {/*<div className="row">*/}
+                {/*    <div className="d-flex gap-10">*/}
+                {/*        /!*<ProductCard/>*!/*/}
+                {/*        /!*<ProductCard/>*!/*/}
+                {/*        /!*<ProductCard/>*!/*/}
+                {/*        /!*<ProductCard/>*!/*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </Container>
             <Container class1="marque-wrapper py-5 ">
                 <div className="row">
@@ -271,18 +306,17 @@ function Home() {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-3">
-                        <BlogCard/>
-                    </div>
-                    <div className="col-3">
-                        <BlogCard/>
-                    </div>
-                    <div className="col-3">
-                        <BlogCard/>
-                    </div>
-                    <div className="col-3">
-                        <BlogCard/>
-                    </div>
+                    {blogs.map(blog => (
+                        <div className="col-3" key={blog._id}>
+                            <BlogCard
+                                id={blog._id}
+                                title={blog.title}
+                                description={blog.description}
+                                createdAt={blog.createdAt}
+                                images={blog.images}
+                            />
+                        </div>
+                    ))}
                 </div>
             </Container>
         </>

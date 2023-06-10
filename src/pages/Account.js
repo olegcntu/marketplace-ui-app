@@ -73,6 +73,7 @@ const Account = () => {
                     <div className="col-9">
                         <div className="products-list pb-5">
                             <div className="d-flex gap-10 flex-wrap">
+                                {console.log(products)}
                                 {products.map((product) => (
                                     <ProductUser key={product._id} product={product} onDeleteProduct={handleDeleteProduct} />
                                 ))}

@@ -39,7 +39,7 @@ function Login() {
                 setError(errorResponse.message);
             }
         } catch (error) {
-            console.error('Ошибка при выполнении запроса:', error);
+            console.error('Error', error);
         }
     };
 

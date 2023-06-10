@@ -37,17 +37,6 @@ const CompareProduct = () => {
                                         <h5>Availability:</h5>
                                         <p>In stock</p>
                                     </div>
-                                    <div className="product-detail">
-                                        <h5>color:</h5>
-                                        <Color/>
-                                    </div>
-                                    <div className="product-detail">
-                                        <h5>color:</h5>
-                                        <div className="d-flex gap-10">
-                                            <p>S</p>
-                                            <p>M</p>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -77,17 +66,7 @@ const CompareProduct = () => {
                                         <h5>Availability:</h5>
                                         <p>In stock</p>
                                     </div>
-                                    <div className="product-detail">
-                                        <h5>color:</h5>
-                                        <Color/>
-                                    </div>
-                                    <div className="product-detail">
-                                        <h5>color:</h5>
-                                        <div className="d-flex gap-10">
-                                            <p>S</p>
-                                            <p>M</p>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>

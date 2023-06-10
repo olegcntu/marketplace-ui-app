@@ -30,7 +30,6 @@ export class BlogCard extends Component {
                 <div className="blog-content">
                     <p className="date">{formattedDate}</p>
                     <h5 className="title">{title}</h5>
-                    <p className="desc">{description}</p>
                     <Link to={`/blog/${id}`} className="button">Read More</Link>
                 </div>
             </div>
