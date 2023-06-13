@@ -922,3 +922,12 @@ product-card .product-details h5 {
 }
 
 /*create product end*/
+
+.form-check-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-check {
+    flex: 0 0 50%; /* Занимает половину ширины контейнера */
+}

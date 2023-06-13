@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BreadCrumb from '../components/BreadCrumb';
-import { Helmet } from 'react-helmet';
 import Meta from '../components/Meta';
-import ReactStars from 'react-rating-stars-component';
-import ProductCard from '../components/ProductCard';
-import Color from '../components/Color';
 import Container from '../components/Container';
 import API_ROUTES from '../api';
 import ProductUser from '../components/ProductUser';

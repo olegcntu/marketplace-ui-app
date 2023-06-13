@@ -9,7 +9,9 @@ const CreateProductForm = () => {
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
     const [images, setImages] = useState([]);
+    const [isNew, setIsNew] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [selectedOption, setSelectedOption] = useState('');
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -19,6 +21,7 @@ const CreateProductForm = () => {
             setBrand('')
             setDescription('')
             setPrice('')
+            setIsNew(false)
             setQuantity('')
             setImages([])
 
@@ -39,6 +42,7 @@ const CreateProductForm = () => {
             category: category,
             brand: brand,
             description: description,
+            isNew:isNew,
             price: parseFloat(price),
             quantity: parseInt(quantity),
         };
@@ -91,6 +95,17 @@ const CreateProductForm = () => {
         setImages(updatedImages);
     };
 
+    const handleOptionChange = (e) => {
+        const value = e.target.value;
+        setSelectedOption(value);
+
+        if (value === 'New Goods') {
+            setIsNew(true);
+        } else if (value === 'Used Goods') {
+            setIsNew(false);
+        }
+    };
+
     return (
         <Container className="my-4">
             {showSuccess && (
@@ -106,7 +121,107 @@ const CreateProductForm = () => {
 
                 <Form.Group controlId="category">
                     <Form.Label>Категория:</Form.Label>
-                    <Form.Control type="text" value={category} onChange={(e) => setCategory(e.target.value)} required/>
+                    <h5 className="sub-title">Category</h5>
+                    <div>
+                        <div className="form-check">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="newGoodsCheckbox"
+                                checked={category === "tablet"}
+                                onChange={() => {
+                                    setCategory("tablet")
+                                }}
+                            />
+                            <label className="form-check-label" htmlFor="newGoodsCheckbox">
+                                Tablet
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="newGoodsCheckbox"
+                                checked={category === "headphones"}
+                                onChange={() => {
+                                    setCategory("headphones")
+                                }}
+                            />
+                            <label className="form-check-label" htmlFor="newGoodsCheckbox">
+                                Headphones
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="newGoodsCheckbox"
+                                checked={category === "computerMouse"}
+                                onChange={() => {
+                                    setCategory("computerMouse")
+                                }}
+                            />
+                            <label className="form-check-label" htmlFor="newGoodsCheckbox">
+                                Computer mouse
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="newGoodsCheckbox"
+                                checked={category === "systemUnit"}
+                                onChange={() => {
+                                    setCategory("systemUnit")
+                                }}
+                            />
+                            <label className="form-check-label" htmlFor="newGoodsCheckbox">
+                                System unit
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="newGoodsCheckbox"
+                                checked={category === "ubsCord"}
+                                onChange={() => {
+                                    setCategory("ubsCord")
+                                }}
+                            />
+                            <label className="form-check-label" htmlFor="newGoodsCheckbox">
+                                USB cord
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="newGoodsCheckbox"
+                                checked={category === "laptop"}
+                                onChange={() => {
+                                    setCategory("laptop")
+                                }}
+                            />
+                            <label className="form-check-label" htmlFor="newGoodsCheckbox">
+                                Laptop
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="usedGoodsCheckbox"
+                                checked={category === "keyboard"}
+                                onChange={() => {
+                                    setCategory("keyboard")
+                                }}
+                            />
+                            <label className="form-check-label" htmlFor="usedGoodsCheckbox">
+                                Keyboard
+                            </label>
+                        </div>
+                    </div>
                 </Form.Group>
 
                 <Form.Group controlId="brand">
@@ -120,6 +235,19 @@ const CreateProductForm = () => {
                                   required/>
                 </Form.Group>
 
+                <Form.Group controlId="option">
+                    <Form.Label>Выберите опцию:</Form.Label>
+                    <Form.Control
+                        as="select"
+                        value={selectedOption}
+                        onChange={handleOptionChange}
+                        required
+                    >
+                        <option value="">Выберите опцию</option>
+                        <option value="New Goods">New Goods</option>
+                        <option value="Used Goods">Used Goods</option>
+                    </Form.Control>
+                </Form.Group>
                 <Form.Group controlId="price">
                     <Form.Label>Цена:</Form.Label>
                     <Form.Control type="number" value={price} onChange={(e) => setPrice(e.target.value)} required/>
