@@ -1,50 +1,81 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import cross from "../images/ico/cross.png"
 import Container from "../components/Container";
+import API_ROUTES from "../api";
+import ProductCardCompare from "../components/ProductCardCompare";
 
 const WishList = () => {
+    const [updateWishlist, setUpdateWishlist] =useState(true);
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch(`${API_ROUTES.USER_SERVICE}/user/wishlist`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                const data = await response.json();
+                setProducts(data.wishlist);
+
+            } catch (error) {
+
+            }
+        };
+        fetchProducts().then(setUpdateWishlist(true))
+
+    }, [updateWishlist]);
+    const addToWishlist=(id)=>{
+        const token = localStorage.getItem('token');
+        const fetchProducts = async () => {
+            try {
+                const requestBody = {
+                    productId: id,
+                };
+                console.log(requestBody)
+                const response = await fetch(`${API_ROUTES.PRODUCT_SERVICE}/product/wishlist`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+            } catch (error) {
+
+            }
+        };
+        fetchProducts().then(setUpdateWishlist(false))
+    }
     return (
         <>
             <Meta title={"WishList"}/>
             <BreadCrumb title="WishList"/>
             <Container class1="wishlist-wrapper home-wrapper-2 py-5">
                 <div className="row">
-                    <div className="col-3">
-                        <div className="wishlist-card position-relative">
-                            <img
-                                src={cross}
-                                alt="cross"
-                                className="position-absolute cross img-fluid"/>
-                            <div className="wishlist-card-image">
-                                <img
-                                    src="/images/product/1.jpg"
-                                    className="img-fluid w-100"/>
-                            </div>
-                            <div className="py-3 px-3">
-                                <h5 className="title">Honor T-1 7.01 GB RAM 8GB ROM 7</h5>
-                                <h6 className="price">$ 100</h6>
-                            </div>
+                    {products.length > 0 ? (
+                        products.map(product => (
+                            <ProductCardCompare
+                                key={product._id}
+                                id={product._id}
+                                imageSrc={product.images[0].url}
+                                title={product.title}
+                                price={product.price}
+                                brand={product.brand}
+                                type={product.isNew}
+                                totalrating={product.totalrating}
+                                addToWishlist={() => addToWishlist(product._id)}
+                            />
+                        ))
+                    ) : (
+                        <div className="no-products">
+                            <p>No product in wishlist</p>
                         </div>
-                    </div>
-                    <div className="col-3">
-                        <div className="wishlist-card position-relative">
-                            <img
-                                src={cross}
-                                alt="cross"
-                                className="position-absolute cross img-fluid"/>
-                            <div className="wishlist-card-image">
-                                <img
-                                    src="/images/product/1.jpg"
-                                    className="img-fluid w-100"/>
-                            </div>
-                            <div className="py-3 px-3">
-                                <h5 className="title">Honor T-1 7.01 GB RAM 8GB ROM 7</h5>
-                                <h6 className="price">$ 100</h6>
-                            </div>
-                        </div>
-                    </div>
+                    )}
                 </div>
             </Container>
         </>

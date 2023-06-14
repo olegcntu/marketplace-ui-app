@@ -931,3 +931,10 @@ product-card .product-details h5 {
 .form-check {
     flex: 0 0 50%; /* Занимает половину ширины контейнера */
 }
+.no-products {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    margin-bottom: 50px; /* Сдвигает футер вниз */
+}

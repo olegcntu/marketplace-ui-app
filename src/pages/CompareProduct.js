@@ -1,76 +1,83 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import Color from "../components/Color";
 import cross from "../images/ico/cross.png"
 import Container from "../components/Container";
+import ProductCardCompare from "../components/ProductCardCompare";
+import API_ROUTES from "../api";
+import BlogCard from "../components/BlogCard";
 
 const CompareProduct = () => {
+    const [products, setProducts] = useState([]);
+    const [updateWishlist, setUpdateWishlist] =useState(true);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch(`${API_ROUTES.USER_SERVICE}/user/compare`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                const data = await response.json();
+                setProducts(data.compare);
+
+            } catch (error) {
+
+            }
+        };
+        fetchProducts().then(setUpdateWishlist(true))
+
+    }, [updateWishlist]);
+    const addToWishlist=(id)=>{
+        const token = localStorage.getItem('token');
+        const fetchProducts = async () => {
+            try {
+                const requestBody = {
+                    productId: id,
+                };
+                console.log(requestBody)
+                const response = await fetch(`${API_ROUTES.PRODUCT_SERVICE}/product/compare`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+            } catch (error) {
+
+            }
+        };
+        fetchProducts().then(setUpdateWishlist(false))
+    }
     return (
         <>
             <Meta title={"Compare Products"}/>
             <BreadCrumb title="Compare Products"/>
             <Container class1="compare-product-wrapper py-5 home-wrapper-2">
                 <div className="row">
-                    <div className="col-3">
-                        <div className="compare-product-card position-relative">
-                            <img
-                                src={cross}
-                                alt="cross"
-                                className="position-absolute cross img-fluid"/>
-                            <div className="product-card-image">
-                                <img src="../images/product/1.jpg" alt="watch"></img>
-                            </div>
-                            <div className="compare-product-details">
-                                <h5 className="title">Honor T-1 7.01 GB RAM 8GB ROM 7</h5>
-                                <h6 className="price mb-3 mt-3">$ 100</h6>
-                                <div>
-                                    <div className="product-detail">
-                                        <h5>Brand:</h5>
-                                        <p>Havels</p>
-                                    </div>
-                                    <div className="product-detail">
-                                        <h5>Type:</h5>
-                                        <p>Watch</p>
-                                    </div>
-                                    <div className="product-detail">
-                                        <h5>Availability:</h5>
-                                        <p>In stock</p>
-                                    </div>
-                                </div>
-                            </div>
+                    {products.length > 0 ? (
+                        products.map(product => (
+                            <ProductCardCompare
+                                key={product._id}
+                                id={product._id}
+                                imageSrc={product.images[0].url}
+                                title={product.title}
+                                price={product.price}
+                                brand={product.brand}
+                                type={product.isNew}
+                                totalrating={product.totalrating}
+                                addToWishlist={() => addToWishlist(product._id)}
+                            />
+                        ))
+                    ) : (
+                        <div className="no-products">
+                            <p>No product to compare</p>
                         </div>
-                    </div>
-                    <div className="col-3">
-                        <div className="compare-product-card position-relative">
-                            <img
-                                src={cross}
-                                alt="cross"
-                                className="position-absolute cross img-fluid"/>
-                            <div className="product-card-image">
-                                <img src="/images/product/1.jpg" alt="watch"></img>
-                            </div>
-                            <div className="compare-product-details">
-                                <h5 className="title">Honor T-1 7.01 GB RAM 8GB ROM 7</h5>
-                                <h6 className="price mb-3 mt-3">$ 100</h6>
-                                <div>
-                                    <div className="product-detail">
-                                        <h5>Brand:</h5>
-                                        <p>Havels</p>
-                                    </div>
-                                    <div className="product-detail">
-                                        <h5>Type:</h5>
-                                        <p>Watch</p>
-                                    </div>
-                                    <div className="product-detail">
-                                        <h5>Availability:</h5>
-                                        <p>In stock</p>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    )}
                 </div>
             </Container>
         </>
