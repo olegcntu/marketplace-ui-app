@@ -7,13 +7,18 @@ import Container from "../components/Container";
 import ProductCardCompare from "../components/ProductCardCompare";
 import API_ROUTES from "../api";
 import BlogCard from "../components/BlogCard";
+import {useNavigate} from "react-router-dom";
 
 const CompareProduct = () => {
     const [products, setProducts] = useState([]);
     const [updateWishlist, setUpdateWishlist] =useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login');
+        }
         const fetchProducts = async () => {
             try {
                 const response = await fetch(`${API_ROUTES.USER_SERVICE}/user/compare`, {

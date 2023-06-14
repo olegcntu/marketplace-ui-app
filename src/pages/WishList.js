@@ -5,13 +5,19 @@ import cross from "../images/ico/cross.png"
 import Container from "../components/Container";
 import API_ROUTES from "../api";
 import ProductCardCompare from "../components/ProductCardCompare";
+import {useNavigate} from "react-router-dom";
 
 const WishList = () => {
     const [updateWishlist, setUpdateWishlist] =useState(true);
     const [products, setProducts] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
+
         const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login');
+        }
         const fetchProducts = async () => {
             try {
                 const response = await fetch(`${API_ROUTES.USER_SERVICE}/user/wishlist`, {
