@@ -10,12 +10,18 @@ import {TbGitCompare} from "react-icons/tb"
 import {AiOutlineHeart} from "react-icons/ai"
 import Container from "../components/Container";
 import API_ROUTES from "../api";
-
+import {useNavigate} from "react-router-dom";
 function SingleProduct() {
 
     const [product, setProduct] = useState(null);
     const [orderedProduct, setOrderedProduct] = useState(true)
     const {id} = useParams();
+    const navigate = useNavigate();
+    const [inputValue, setInputValue] = useState('');
+
+    const handleInputChange = (event) => {
+        setInputValue(event.target.value);
+    };
 
     useEffect(() => {
         fetchProduct();
@@ -33,6 +39,81 @@ function SingleProduct() {
 
     if (!product) {
         return <div>Loading...</div>;
+    }
+    const buyItNow=()=>{
+        addToCart();
+        navigate('/cart');
+
+    }
+
+    const addToCart=()=>{
+        const token = localStorage.getItem('token');
+        const fetchProductToWishlist = async () => {
+            try {
+                const requestBody = {
+                    productId: id,
+                    quantity: inputValue
+                };
+                console.log(requestBody)
+                const response = await fetch(`${API_ROUTES.PRODUCT_SERVICE}/product/cart`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+            } catch (error) {
+
+            }
+        };
+        fetchProductToWishlist().then()
+    }
+    const addToWishlist=(event)=>{
+        event.preventDefault();
+        const token = localStorage.getItem('token');
+        const fetchProductToWishlist = async () => {
+            try {
+                const requestBody = {
+                    productId: id,
+                };
+                console.log(requestBody)
+                const response = await fetch(`${API_ROUTES.PRODUCT_SERVICE}/product/wishlist`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+            } catch (error) {
+
+            }
+        };
+        fetchProductToWishlist().then()
+    }
+    const addToCompare=(event)=>{
+        event.preventDefault();
+        const token = localStorage.getItem('token');
+        const fetchProductToWishlist = async () => {
+            try {
+                const requestBody = {
+                    productId: id,
+                };
+                console.log(requestBody)
+                const response = await fetch(`${API_ROUTES.PRODUCT_SERVICE}/product/compare`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+            } catch (error) {
+
+            }
+        };
+        fetchProductToWishlist().then()
     }
 
     const {
@@ -132,6 +213,7 @@ function SingleProduct() {
                                     <h3 className="product-heading">Quantity :</h3>
                                     <div className="">
                                         <input
+                                            onChange={handleInputChange}
                                             className="form-control"
                                             style={{width: "70px"}}
                                             type="number"
@@ -142,16 +224,17 @@ function SingleProduct() {
                                             id=""></input>
                                     </div>
                                     <div className="d-flex align-items-center gap-30 ms-5">
-                                        <button className="button border-0" type="submit">Add to Card</button>
-                                        <button className="button signup">Buy It Now</button>
+                                        <button className="button border-0" type="submit" onClick={(event) => addToCart()}>
+                                            Add to Card</button>
+                                        <button onClick={(event) => buyItNow() }className="button signup">Buy It Now</button>
                                     </div>
                                 </div>
                                 <div className="d-flex align-items-center gap-15">
                                     <div>
-                                        <a href=""><TbGitCompare className="fs-5 me-2"/>Add to Compare</a>
+                                        <a onClick={addToCompare} href=""><TbGitCompare className="fs-5 me-2"/>Add to Compare</a>
                                     </div>
                                     <div>
-                                        <a href=""><AiOutlineHeart className="fs-5 me-2"/>Add to Wishlist</a>
+                                        <a onClick={addToWishlist} href=""><AiOutlineHeart className="fs-5 me-2"/>Add to Wishlist</a>
                                     </div>
                                 </div>
                                 <div className="d-flex gap-10 align-items-center my-3">
