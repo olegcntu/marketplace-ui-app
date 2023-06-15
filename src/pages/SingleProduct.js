@@ -136,8 +136,9 @@ function SingleProduct() {
                                             style={{width: "70px"}}
                                             type="number"
                                             min={1}
-                                            max={10}
+                                            max={quantity}
                                             name=""
+                                            defaultValue={1}
                                             id=""></input>
                                     </div>
                                     <div className="d-flex align-items-center gap-30 ms-5">
