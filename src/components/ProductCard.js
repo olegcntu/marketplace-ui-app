@@ -57,6 +57,30 @@ const ProductCard = ({product, grid}) => {
         };
         fetchProductToWishlist().then()
     }
+    const addToCart=(id,event)=>{
+        event.preventDefault();
+        const token = localStorage.getItem('token');
+        const fetchProductToWishlist = async () => {
+            try {
+                const requestBody = {
+                    productId: id,
+                    quantity: 1
+                };
+                console.log(requestBody)
+                const response = await fetch(`${API_ROUTES.PRODUCT_SERVICE}/product/cart`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+            } catch (error) {
+
+            }
+        };
+        fetchProductToWishlist().then()
+    }
     return (
         <>
             <div className={`${location.pathname === '/product' ? `gr-${grid}` : 'col-3'}`}>
@@ -90,7 +114,7 @@ const ProductCard = ({product, grid}) => {
                             <button className="border-0 bg-transparent">
                                 <img src="/images/ico/view.png" alt="view"/>
                             </button>
-                            <button className="border-0 bg-transparent">
+                            <button onClick={(event) => addToCart(_id,event)} className="border-0 bg-transparent">
                                 <img src="/images/ico/addcard.png" alt="addcard"/>
                             </button>
                         </div>
