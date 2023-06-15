@@ -8,16 +8,39 @@ import Container from "../components/Container";
 import {services} from "../utils/Data";
 import Meta from "../components/Meta";
 import API_ROUTES from "../api";
+import CartComponent from "../components/CartComponent";
 
 function Home() {
     const [blogs, setBlogs] = useState([]);
+    const [specialProd, setSpecialProd] = useState([]);
 
     useEffect(() => {
         fetch(`${API_ROUTES.BLOG_SERVICE}/blog/`)
             .then(response => response.json())
             .then(data => setBlogs(data))
             .catch(error => console.error('Ошибка при выполнении запроса:', error));
+
+        fetch(`${API_ROUTES.PRODUCT_SERVICE}/product/`)
+            .then(response => response.json())
+            .then(data => {
+                // Получение случайных индексов 3 продуктов
+                const randomIndexes = [];
+                while (randomIndexes.length < 3) {
+                    const randomIndex = Math.floor(Math.random() * data.length);
+                    if (!randomIndexes.includes(randomIndex)) {
+                        randomIndexes.push(randomIndex);
+                    }
+                }
+                const randomProducts = randomIndexes.map(index => data[index]);
+                setSpecialProd(randomProducts);
+            })
+            .catch(error => console.error('Ошибка при выполнении запроса:', error));
+
+
+
     }, []);
+
+
 
     return (
         <>
@@ -221,36 +244,25 @@ function Home() {
                     </div>
                 </div>
                 <div className="row">
-                    <SpecialProduct
-                        imageSrc="/images/photo-camera.jpg"
-                        brand="Havels"
-                        title="Camera Cannon Mark 2+ "
-                        rating={5}
-                        price={1000}
-                        discountDays={3}
-                        productCount={5}
-                        progressValue={25}
-                    />
-                    <SpecialProduct
-                        imageSrc="/images/a.jpg"
-                        brand="RZTK"
-                        title="Headphones RZTK MS300 Black"
-                        rating={4}
-                        price={100}
-                        discountDays={1}
-                        productCount={5}
-                        progressValue={275}
-                    />
-                    <SpecialProduct
-                        imageSrc="/images/yt.jpg"
-                        brand="Acer"
-                        title="Notebook Acer Aspire 7 A715-42G-R3EZ (NH.QBFEU.00C) "
-                        rating={5}
-                        price={1500}
-                        discountDays={5}
-                        productCount={5}
-                        progressValue={95}
-                    />
+                    {specialProd.map((product) => {
+                        const randomDiscountDays = Math.floor(Math.random() * 5) + 1;
+                        const randomProgressValue = Math.floor(Math.random() * 100) + 1;
+
+                        return (
+                            <SpecialProduct
+                                id={product._id}
+                                imageSrc={product.images[0].url}
+                                brand={product.brand}
+                                title={product.title}
+                                rating={5}
+                                price={product.price}
+                                discountDays={randomDiscountDays}
+                                productCount={product.quantity}
+                                progressValue={randomProgressValue}
+                            />
+                        );
+                    })}
+
                 </div>
             </Container>
             <Container class1="popular-wrapper py-5 home-wrapper-2">
