@@ -48,7 +48,7 @@ const Cart = () => {
                         </div>
                         {products.map((product) => (
                             <CartComponent
-                          //  key={item.id}
+                            key={product.product._id}
                             imageSrc={product.product.images[0].url}
                             title={product.product.title}
                             iaNew={product.product.isNew}
