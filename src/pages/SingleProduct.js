@@ -17,7 +17,7 @@ function SingleProduct() {
     const [orderedProduct, setOrderedProduct] = useState(true)
     const {id} = useParams();
     const navigate = useNavigate();
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState(1);
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
