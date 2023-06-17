@@ -24,15 +24,17 @@ function Home() {
             .then(response => response.json())
             .then(data => {
                 // Получение случайных индексов 3 продуктов
-                const randomIndexes = [];
-                while (randomIndexes.length < 3) {
-                    const randomIndex = Math.floor(Math.random() * data.length);
-                    if (!randomIndexes.includes(randomIndex)) {
-                        randomIndexes.push(randomIndex);
+                if(data.length>3) {
+                    const randomIndexes = [];
+                    while (randomIndexes.length < 3) {
+                        const randomIndex = Math.floor(Math.random() * data.length);
+                        if (!randomIndexes.includes(randomIndex)) {
+                            randomIndexes.push(randomIndex);
+                        }
                     }
+                    const randomProducts = randomIndexes.map(index => data[index]);
+                    setSpecialProd(randomProducts);
                 }
-                const randomProducts = randomIndexes.map(index => data[index]);
-                setSpecialProd(randomProducts);
             })
             .catch(error => console.error('Ошибка при выполнении запроса:', error));
 
