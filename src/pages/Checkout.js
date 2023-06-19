@@ -15,12 +15,12 @@ const Checkout = () => {
     const [subTotal, setSubTotal] = useState(0);
     const [shipping, setShipping] = useState(0);
     const [total, setTotal] = useState(0);
-    const [telephone, setTelephone] = useState(0);
+    const [telephone, setTelephone] = useState(null);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
         fetchProduct()
-    }, []);
+    }, [total,subTotal,shipping]);
     const fetchProduct = async () => {
         const token = localStorage.getItem('token');
         try {
@@ -183,7 +183,6 @@ const Checkout = () => {
                                            className="form-control"
                                            value={telephone}
                                            onChange={handleTelephoneChange}/>
-                                    />
                                 </div>
                                 <div className="w-100">
                                     <div className="d-flex justify-content-between align-items-center">
