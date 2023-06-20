@@ -6,7 +6,7 @@ function Header() {
     const [username, setUsername] = useState('');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [timeoutId, setTimeoutId] = useState(null);
-
+    const role = localStorage.getItem('role');
     useEffect(() => {
         const storedUsername = localStorage.getItem('username');
         if (storedUsername) {
@@ -18,6 +18,7 @@ function Header() {
         localStorage.removeItem('username');
         localStorage.removeItem('token');
         localStorage.removeItem('userEmail');
+        localStorage.removeItem('role');
     };
 
     const handleDropdownToggle = () => {
@@ -134,7 +135,6 @@ function Header() {
                                         <img src="/images/cart.png" alt="cart"/>
                                         <div className="d-flex flex-column gap-10">
                                             <span className="badge bg-white text-dark">0</span>
-                                            <p className="mb-0">$ 500 </p>
                                         </div>
                                     </Link>
                                 </div>
@@ -175,6 +175,7 @@ function Header() {
                                         <NavLink to="/blogs">Blogs</NavLink>
                                         <NavLink to="/contact">Contact</NavLink>
                                         <NavLink to="/orders">Orders</NavLink>
+                                        {role==='admin' ? <NavLink to="/admin">Admin</NavLink> : <></>}
                                     </div>
                                 </div>
                             </div>

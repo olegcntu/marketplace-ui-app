@@ -32,7 +32,7 @@ function Login() {
                 localStorage.setItem('token', json.token);
                 localStorage.setItem('username', json.firstname);
                 localStorage.setItem('userEmail', json.email);
-
+                localStorage.setItem('role', json.role);
                 window.location.href = '/';
             } else {
                 const errorResponse = await response.json();

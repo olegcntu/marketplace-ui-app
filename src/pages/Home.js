@@ -13,7 +13,7 @@ import CartComponent from "../components/CartComponent";
 function Home() {
     const [blogs, setBlogs] = useState([]);
     const [specialProd, setSpecialProd] = useState([]);
-
+    const role = localStorage.getItem('role');
     useEffect(() => {
         fetch(`${API_ROUTES.BLOG_SERVICE}/blog/`)
             .then(response => response.json())
@@ -23,7 +23,6 @@ function Home() {
         fetch(`${API_ROUTES.PRODUCT_SERVICE}/product/`)
             .then(response => response.json())
             .then(data => {
-                // Получение случайных индексов 3 продуктов
                 if(data.length>3) {
                     const randomIndexes = [];
                     while (randomIndexes.length < 3) {
