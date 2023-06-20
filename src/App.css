@@ -938,3 +938,7 @@ product-card .product-details h5 {
     height: 250px;
     margin-bottom: 50px; /* Сдвигает футер вниз */
 }
+
+.prod{
+    margin-top: 3%;
+}

@@ -11,6 +11,7 @@ import {AiOutlineHeart} from "react-icons/ai"
 import Container from "../components/Container";
 import API_ROUTES from "../api";
 import {useNavigate} from "react-router-dom";
+
 function SingleProduct() {
 
     const [product, setProduct] = useState(null);
@@ -40,13 +41,13 @@ function SingleProduct() {
     if (!product) {
         return <div>Loading...</div>;
     }
-    const buyItNow=()=>{
+    const buyItNow = () => {
         addToCart();
         navigate('/cart');
 
     }
 
-    const addToCart=()=>{
+    const addToCart = () => {
         const token = localStorage.getItem('token');
         const fetchProductToWishlist = async () => {
             try {
@@ -69,7 +70,7 @@ function SingleProduct() {
         };
         fetchProductToWishlist().then()
     }
-    const addToWishlist=(event)=>{
+    const addToWishlist = (event) => {
         event.preventDefault();
         const token = localStorage.getItem('token');
         const fetchProductToWishlist = async () => {
@@ -92,7 +93,7 @@ function SingleProduct() {
         };
         fetchProductToWishlist().then()
     }
-    const addToCompare=(event)=>{
+    const addToCompare = (event) => {
         event.preventDefault();
         const token = localStorage.getItem('token');
         const fetchProductToWishlist = async () => {
@@ -184,7 +185,6 @@ function SingleProduct() {
 
                                 <div className="d-flex gap-10 align-items-center my-2">
                                     <h3 className="product-heading">Condition :</h3>
-                                    {console.log(isNew)}
                                     {isNew ? <p className="product-data">New Goods</p> :
                                         <p className="product-data">Used Goods</p>}
 
@@ -220,23 +220,35 @@ function SingleProduct() {
                                             min={1}
                                             max={quantity}
                                             name=""
-                                            defaultValue={1}
+                                            defaultValue={quantity === 0 ? 0 : 1}
                                             id=""></input>
                                     </div>
-                                    <div className="d-flex align-items-center gap-30 ms-5">
-                                        <button className="button border-0" type="submit" onClick={(event) => addToCart()}>
-                                            Add to Card</button>
-                                        <button onClick={(event) => buyItNow() }className="button signup">Buy It Now</button>
-                                    </div>
                                 </div>
-                                <div className="d-flex align-items-center gap-15">
+                                {quantity !== 0 ? (
                                     <div>
-                                        <a onClick={addToCompare} href=""><TbGitCompare className="fs-5 me-2"/>Add to Compare</a>
+                                        <div className="d-flex align-items-center gap-30 ms-0">
+                                            <button className="button border-0" type="submit"
+                                                    onClick={(event) => addToCart()}>
+                                                Add to Card
+                                            </button>
+                                            <button onClick={(event) => buyItNow()} className="button signup">Buy It
+                                                Now
+                                            </button>
+                                        </div>
+
+                                        <div className="prod d-flex align-items-center gap-15">
+                                            <div>
+                                                <a onClick={addToCompare} href=""><TbGitCompare className="fs-5 me-2"/>Add
+                                                    to Compare</a>
+                                            </div>
+                                            <div>
+                                                <a onClick={addToWishlist} href=""><AiOutlineHeart
+                                                    className="fs-5 me-2"/>Add to Wishlist</a>
+                                            </div>
+
+                                        </div>
                                     </div>
-                                    <div>
-                                        <a onClick={addToWishlist} href=""><AiOutlineHeart className="fs-5 me-2"/>Add to Wishlist</a>
-                                    </div>
-                                </div>
+                                ) : (<div>no product in stock</div>)}
                                 <div className="d-flex gap-10 align-items-center my-3">
                                     <h3 className="product-heading">Shipping & Returns :</h3>
                                     <p className="product-data">Free shipping and returns avalibal rge efs;wf </p>
