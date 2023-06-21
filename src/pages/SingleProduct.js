@@ -144,15 +144,16 @@ function SingleProduct() {
         <>
             <Meta title={title}/>
             <BreadCrumb title={title}/>
-            {console.log(images)}
             <Container class1="main-product-wrapper py-5 home-wrapper-2">
                 <div className="row">
                     <div className="col-6">
                         <div className="main-product-image">
                             <div>
-                                <ReactImageZoom{...props}/>
+                                <img className="img-fluid" src={ images[0].url} alt=""/>
                             </div>
                         </div>
+                        {/*<ReactImageZoom{...props}/>*/}
+                        {/*<img className="img-fluid" src={ images[0].url} alt=""/>*/}
                         <div className="other-product-images d-flex flex-wrap gap-15">
                             {images.map((image, index) => (
                                 <div key={index}>
@@ -334,8 +335,7 @@ function SingleProduct() {
                                             activeColor="#ffd700"
                                         />
                                     </div>
-                                    <p className="mt-3">wrfhwrfojnfjkofkfjkjksjkdfjksdfjkjklsdff wrfiowsfjg
-                                        owrjfo </p>
+                                    <p className="mt-3"> </p>
                                 </div>
                             </div>
                         </div>
