@@ -18,7 +18,7 @@ function Home() {
         fetch(`${API_ROUTES.BLOG_SERVICE}/blog/`)
             .then(response => response.json())
             .then(data => setBlogs(data))
-            .catch(error => console.error('Ошибка при выполнении запроса:', error));
+            .catch(error => console.error('Error while executing request::', error));
 
         fetch(`${API_ROUTES.PRODUCT_SERVICE}/product/`)
             .then(response => response.json())
@@ -35,7 +35,7 @@ function Home() {
                     setSpecialProd(randomProducts);
                 }
             })
-            .catch(error => console.error('Ошибка при выполнении запроса:', error));
+            .catch(error => console.error('Error while executing request:', error));
 
 
 

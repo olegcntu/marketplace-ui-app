@@ -66,13 +66,11 @@ function SingleBlog() {
                 })
                 .catch((error) => console.log(error));
         } else {
-            // Перенаправление пользователя на страницу входа в аккаунт
             window.location.href = '/login';
         }
     };
 
     const handleDislike = () => {
-        // Проверка наличия токена перед отправкой запроса на дизлайк
         if (token) {
             const requestBody = {
                 blogId: id,
@@ -92,7 +90,6 @@ function SingleBlog() {
                 })
                 .catch((error) => console.log(error));
         } else {
-            // Перенаправление пользователя на страницу входа в аккаунт
             window.location.href = '/login';
         }
     };

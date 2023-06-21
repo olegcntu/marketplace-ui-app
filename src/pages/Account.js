@@ -40,10 +40,9 @@ const Account = () => {
                 },
             });
             if (response.ok) {
-                // Удаляем продукт из списка после успешного удаления
                 setProducts((prevProducts) => prevProducts.filter((product) => product._id !== productId));
             } else {
-                console.log('Ошибка при удалении продукта');
+                console.log('Error when uninstalling a product');
             }
         } catch (error) {
             console.log(error);

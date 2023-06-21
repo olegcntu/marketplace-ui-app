@@ -57,11 +57,10 @@ const EditProduct = () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log('Продукт update создан:', data);
+                console.log('product update created:', data);
             })
             .catch((error) => {
-                console.error('Ошибка при update продукта:', error);
-                // Дополнительные действия при ошибке создания продукта
+                console.error('Error while updating product:', error);
             });
     };
 
@@ -142,7 +141,7 @@ const EditProduct = () => {
                                                     />
                                                     <Button variant="danger" size="sm" className="mt-2"
                                                             onClick={() => handleImageRemove(index)}>
-                                                        Удалить
+                                                        Delete
                                                     </Button>
                                                 </div>
                                             ))}

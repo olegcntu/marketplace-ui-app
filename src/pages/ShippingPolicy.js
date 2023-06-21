@@ -37,7 +37,6 @@ function ShippingPolicy() {
                         <p>
                             Please note that international orders may be subject to customs duties, taxes, and import fees imposed by the destination country. These additional charges are the responsibility of the recipient and are not included in the order total or shipping cost.
                         </p>
-                        {/* Добавьте дополнительный контент и указания, специфичные для вашего маркетплейса */}
                     </div>
                 </div>
             </Container>

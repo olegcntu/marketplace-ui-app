@@ -175,7 +175,8 @@ function Header() {
                                         <NavLink to="/blogs">Blogs</NavLink>
                                         <NavLink to="/contact">Contact</NavLink>
                                         <NavLink to="/orders">Orders</NavLink>
-                                        {role==='admin' ? <NavLink to="/admin">Admin</NavLink> : <></>}
+                                        {role==='admin' ? <NavLink to="/admin-user">User-Admin</NavLink> : <></>}
+                                        {role==='admin' ? <NavLink to="/admin-blog">Blog-Admin</NavLink> : <></>}
                                     </div>
                                 </div>
                             </div>

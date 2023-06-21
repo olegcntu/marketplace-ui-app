@@ -26,7 +26,7 @@ const Cart = () => {
             });
             const data = await response.json();
             setProducts(data.cart);
-            calculateSubTotal(data.cart); // Вызывается после успешного установления данных в products
+            calculateSubTotal(data.cart);
         } catch (error) {
             console.log(error);
         }

@@ -41,7 +41,6 @@ function TermsAndConditions() {
                         <p>
                             We shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising out of your access to or use of our website. This includes damages for lost profits, data, or other intangible losses, even if we have been advised of the possibility of such damages.
                         </p>
-                        {/* Добавьте дополнительный контент и указания, специфичные для вашего маркетплейса */}
                     </div>
                 </div>
             </Container>

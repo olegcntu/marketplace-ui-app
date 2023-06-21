@@ -32,7 +32,7 @@ const Checkout = () => {
                 },
             });
             const data = await response.json();
-            calculateSubTotal(data.cart); // Вызывается после успешного установления данных в products
+            calculateSubTotal(data.cart);
             calculateShipping(data.cart);
             calculateTotal();
         } catch (error) {
@@ -105,7 +105,7 @@ const Checkout = () => {
 
             })
             .catch((error) => {
-                console.error('Ошибка', error);
+                console.error('Error', error);
             });
     };
 

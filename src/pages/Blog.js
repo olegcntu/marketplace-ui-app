@@ -13,7 +13,7 @@ const Blog = () => {
         fetch(`${API_ROUTES.BLOG_SERVICE}/blog/`)
             .then(response => response.json())
             .then(data => setBlogs(data))
-            .catch(error => console.error('Ошибка при выполнении запроса:', error));
+            .catch(error => console.error('Error while executing request:', error));
     }, []);
 
     return (
